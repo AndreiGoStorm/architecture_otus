@@ -1,4 +1,4 @@
-package hw2
+package move
 
 type Move struct {
 	obj Movable

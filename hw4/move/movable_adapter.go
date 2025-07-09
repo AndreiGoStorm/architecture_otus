@@ -1,14 +1,8 @@
-package hw2
+package move
 
 import (
-	"errors"
-
+	"architecture_otus/hw4"
 	"architecture_otus/pkg"
-)
-
-var (
-	ErrNoPosition = errors.New("cannot read position from properties")
-	ErrNoVelocity = errors.New("cannot read velocity from properties")
 )
 
 type Movable interface {
@@ -18,29 +12,29 @@ type Movable interface {
 }
 
 type MovableObjectAdapter struct {
-	obj SpaceObject
+	obj hw4.SpaceObject
 }
 
-func NewMovableObjectAdapter(obj SpaceObject) Movable {
+func NewMovableObjectAdapter(obj hw4.SpaceObject) Movable {
 	return &MovableObjectAdapter{obj}
 }
 
 func (a *MovableObjectAdapter) getPosition() (*pkg.Vector, error) {
-	position := a.obj.getProperty("position")
+	position := a.obj.GetProperty("position")
 	if position == nil {
-		return nil, ErrNoPosition
+		return nil, hw4.ErrNoPosition
 	}
 	return position.(*pkg.Vector), nil
 }
 
 func (a *MovableObjectAdapter) setPosition(position *pkg.Vector) {
-	a.obj.setProperty("position", position)
+	a.obj.SetProperty("position", position)
 }
 
 func (a *MovableObjectAdapter) getVelocity() (*pkg.Vector, error) {
-	velocity := a.obj.getProperty("velocity")
+	velocity := a.obj.GetProperty("velocity")
 	if velocity == nil {
-		return nil, ErrNoVelocity
+		return nil, hw4.ErrNoVelocity
 	}
 
 	return velocity.(*pkg.Vector), nil
