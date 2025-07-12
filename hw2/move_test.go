@@ -3,6 +3,7 @@ package hw2
 import (
 	"testing"
 
+	"architecture_otus/pkg"
 	"github.com/stretchr/testify/require"
 )
 
@@ -10,8 +11,8 @@ func TestMoveObject(t *testing.T) {
 	t.Run("move object to new position", func(t *testing.T) {
 		// Arrange
 		obj := NewSpaceship()
-		obj.setProperty("position", &Vector{12, 5})
-		obj.setProperty("velocity", &Vector{-7, 3})
+		obj.setProperty("position", &pkg.Vector{X: 12, Y: 5})
+		obj.setProperty("velocity", &pkg.Vector{X: -7, Y: 3})
 		movable := NewMovableObjectAdapter(obj)
 
 		move := NewMove(movable)
@@ -22,8 +23,8 @@ func TestMoveObject(t *testing.T) {
 		// Assert
 		require.Nil(t, err)
 		position, _ := movable.getPosition()
-		require.Equal(t, position.x, float64(5))
-		require.Equal(t, position.y, float64(8))
+		require.Equal(t, position.X, float64(5))
+		require.Equal(t, position.Y, float64(8))
 	})
 
 	t.Run("can not read position", func(t *testing.T) {
@@ -41,7 +42,7 @@ func TestMoveObject(t *testing.T) {
 	t.Run("can not read velocity", func(t *testing.T) {
 		// Arrange
 		obj := NewSpaceship()
-		obj.setProperty("position", &Vector{10, -2})
+		obj.setProperty("position", &pkg.Vector{X: 10, Y: -2})
 		movable := NewMovableObjectAdapter(obj)
 		move := NewMove(movable)
 
